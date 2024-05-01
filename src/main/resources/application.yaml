@@ -17,6 +17,15 @@ spring:
   datasource:
     # ImMemory
     url: jdbc:h2:mem:votingrestaurants
+    #    tcp: jdbc:h2:tcp://localhost:9092/mem:votingrestaurants
+    # Absolute path
+    #    url: jdbc:h2:C:/projects/votingrestaurants/db/votingrestaurants
+    #    tcp: jdbc:h2:tcp://localhost:9092/C:/projects/votingrestaurants/db/votingrestaurants
+    # Relative path form current dir
+    #    url: jdbc:h2:./db/votingrestaurants
+    # Relative path from home
+    #    url: jdbc:h2:~/votingrestaurants
+    #    tcp: jdbc:h2:tcp://localhost:9092/~/votingrestaurants
     username: sa
     password:
 
