@@ -30,20 +30,18 @@ insert into RESTAURANT (NAME)
 values ('Russian');
 
 insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-02', 1);
+values ('2024-05-06', 1);
 insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-02', 2 );
+values ('2024-05-06', 2 );
 insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-02', 3);
-insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-03', 1);
+values ('2024-05-06', 3);
 
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (1, 1, '2024-05-02');
+values (1, 1, '2024-05-06');
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (2, 1, '2024-05-02');
+values (2, 1, '2024-05-06');
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (3, 1, '2024-05-02');
+values (3, 1, '2024-05-06');
 
 
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)

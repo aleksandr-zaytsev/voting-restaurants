@@ -23,4 +23,5 @@ public class RestaurantMenuController {
     public ResponseEntity<RestaurantListTo> getAll() {
         return ResponseEntity.of(restaurantMenuService.getAll());
     }
+
 }
