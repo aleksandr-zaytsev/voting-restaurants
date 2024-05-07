@@ -15,6 +15,7 @@ import ru.azaytsev.votingrestaurants.user.to.RestaurantListTo;
 import ru.azaytsev.votingrestaurants.user.to.RestaurantTo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,20 +31,21 @@ public class RestaurantMenuService {
     public Optional<RestaurantListTo> getAll() {
 
 
-        List<RestaurantTo> list = null;
+        List<RestaurantTo> list = new ArrayList<RestaurantTo>();
 
         List<Restaurant> restaurantList = restaurantRepository.findAll();
 
         for (Restaurant restaurant : restaurantList) {
-            Menu menu = menuRepository.findByIdAndLocalDate(restaurant.id(), LocalDate.now());
+            Menu menu = menuRepository.findMenuByRestaurantAndDayOfWeek(restaurant, LocalDate.now().getDayOfWeek().name());
 
             List<MenuItem> menuItemList = menuItemRepository.findByMenu(menu);
             List<Dish> dishList = dishRepository.findAll();
-            List<MenuTo> menuToList = null;
+            List<MenuTo> menuToList = new ArrayList<MenuTo>();
 
             for (var menuItem : menuItemList) {
                 Dish localDish = dishList.stream().filter(it -> it.getId() == menuItem.getDish().getId()).findFirst().orElseThrow();
-                menuToList.add(new MenuTo(localDish.getName(), menuItem.getPrice()));
+                MenuTo menuTo = new MenuTo(localDish.getName(), menuItem.getPrice());
+                menuToList.add(menuTo);
             }
 
             RestaurantTo restaurantTo = new RestaurantTo(restaurant.getName(), 1, menuToList);

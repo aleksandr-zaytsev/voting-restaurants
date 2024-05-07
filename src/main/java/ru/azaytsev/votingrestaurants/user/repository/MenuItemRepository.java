@@ -9,13 +9,9 @@ import java.util.List;
 
 @Repository
 public interface MenuItemRepository extends BaseRepository<MenuItem> {
-    default List<MenuItem> findAll() {
-        return findAll();
-    }
+    List<MenuItem> findAll();
 
-    default List<MenuItem> findByMenu(Menu menu) {
-        return findByMenu(menu);
-    }
+    List<MenuItem> findByMenu(Menu menu);
 
     default MenuItem create(MenuItem menuItem) {
         return save(menuItem);

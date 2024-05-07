@@ -29,28 +29,28 @@ values ('Chinese');
 insert into RESTAURANT (NAME)
 values ('Russian');
 
-insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-06', 1);
-insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-06', 2 );
-insert into MENU ("DATE", RESTAURANT_ID)
-values ('2024-05-06', 3);
+insert into MENU (RESTAURANT_ID, DAY_OF_WEEK, DATE_MODIFY)
+values (1, 'TUESDAY', CURRENT_TIMESTAMP());
+insert into MENU (RESTAURANT_ID, DAY_OF_WEEK, DATE_MODIFY)
+values (2, 'TUESDAY', CURRENT_TIMESTAMP());
+insert into MENU (RESTAURANT_ID, DAY_OF_WEEK, DATE_MODIFY)
+values (3, 'TUESDAY', CURRENT_TIMESTAMP());
 
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (1, 1, '2024-05-06');
+values (1, 1, '2024-05-07');
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (2, 1, '2024-05-06');
+values (2, 1, '2024-05-07');
 insert into VOTE (RESTAURANT_ID, USER_ID, DATE)
-values (3, 1, '2024-05-06');
+values (3, 1, '2024-05-07');
 
 
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)
-values (1,1,500);
+values (1, 1, 500);
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)
-values (2,1,400);
+values (2, 1, 400);
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)
-values (3,1,300);
+values (3, 1, 300);
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)
-values (4,2,200);
+values (4, 2, 200);
 insert into MENU_ITEM (DISH_ID, MENU_ID, PRICE)
-values (5,3,100);
+values (5, 3, 100);
