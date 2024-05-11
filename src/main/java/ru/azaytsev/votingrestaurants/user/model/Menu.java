@@ -5,26 +5,27 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import ru.azaytsev.votingrestaurants.common.model.BaseEntity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "day_of_week"}, name = "menu_unique_restaurant_id_day_of_week_idx")})
+@Table(name = "menu")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true) // надо или нет ???
 public class Menu extends BaseEntity {
 
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) // or LAZY ???
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @NotNull
-    @Column(name = "day_of_week", nullable = false)
-    private String dayOfWeek;
+    @Column(name = "menu_date", nullable = false)
+    private LocalDate menuDate;
 
-    @NotNull
-    @Column(name = "date_modify", nullable = false)
-    private LocalDateTime dateModify = LocalDateTime.now();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private List<Dish> dishes;
 }

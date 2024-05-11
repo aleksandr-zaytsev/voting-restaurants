@@ -1,29 +1,37 @@
 package ru.azaytsev.votingrestaurants.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import ru.azaytsev.votingrestaurants.common.HasId;
 import ru.azaytsev.votingrestaurants.common.model.BaseEntity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "vote")
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"user"})
-public class Vote extends BaseEntity {
-    @Column(name = "date", nullable = false)
+@EqualsAndHashCode(callSuper = true)
+public class Vote extends BaseEntity implements Serializable {
+
+    @Column(name = "vote_date", nullable = false)
     @NotNull
-    private LocalDate date;
+    private LocalDate voteDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIncludeProperties(value = {"id"})
     private Restaurant restaurant;
+
 }
