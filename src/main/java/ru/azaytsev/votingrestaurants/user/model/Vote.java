@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import ru.azaytsev.votingrestaurants.common.HasId;
 import ru.azaytsev.votingrestaurants.common.model.BaseEntity;
 
 import java.io.Serializable;
