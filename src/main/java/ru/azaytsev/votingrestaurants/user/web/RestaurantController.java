@@ -2,7 +2,6 @@ package ru.azaytsev.votingrestaurants.user.web;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,7 +23,9 @@ import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.che
 public class RestaurantController {
 
     static final String REST_URL = "/api/admin/restaurants";
-    protected RestaurantRepository restaurantRepository;
+
+    private final RestaurantRepository restaurantRepository;
+
 
     //TODO
     @GetMapping
@@ -57,5 +58,9 @@ public class RestaurantController {
     public ResponseEntity<Restaurant> get(int id) {
         log.info("get {}", id);
         return ResponseEntity.of(restaurantRepository.findById(id));
+    }
+
+    public RestaurantController(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository = restaurantRepository;
     }
 }

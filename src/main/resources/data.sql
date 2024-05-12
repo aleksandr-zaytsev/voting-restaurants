@@ -37,9 +37,9 @@ values ('Rice', 200, 2);
 insert into DISH (NAME, PRICE, MENU_ID)
 values ('Potato with meat', 800, 3);
 insert into DISH (NAME, PRICE, MENU_ID)
-values ('Soup', 300, 2);
+values ('Soup', 300, 3);
 insert into DISH (NAME, PRICE, MENU_ID)
-values ('Eggs', 400, 2);
+values ('Eggs', 400, 3);
 
 insert into VOTE (USER_ID, RESTAURANT_ID, VOTE_DATE)
 values (1, 1, NOW());

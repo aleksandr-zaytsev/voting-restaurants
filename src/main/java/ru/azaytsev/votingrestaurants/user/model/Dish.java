@@ -27,10 +27,4 @@ public class Dish extends NamedEntity implements Serializable {
     @JoinColumn(name = "menu_id", nullable = false)
     @JsonIgnore
     private Menu menu;
-
-//    public Dish(Integer id, String name, BigDecimal price) {
-//        super(id, name);
-//        this.price = price;
-//        this.menu = null;
-//    }
 }

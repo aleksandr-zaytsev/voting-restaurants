@@ -11,9 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.lang.NonNull;
+import ru.azaytsev.votingrestaurants.common.HasIdAndEmail;
 import ru.azaytsev.votingrestaurants.common.model.NamedEntity;
 import ru.azaytsev.votingrestaurants.common.validation.NoHtml;
-import ru.azaytsev.votingrestaurants.common.HasIdAndEmail;
 
 import java.util.*;
 
