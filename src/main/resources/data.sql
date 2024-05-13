@@ -43,7 +43,4 @@ values ('Eggs', 400, 3);
 
 insert into VOTE (USER_ID, RESTAURANT_ID, VOTE_DATE)
 values (1, 1, NOW());
-insert into VOTE (RESTAURANT_ID, USER_ID, VOTE_DATE)
-values (2, 1, NOW());
-insert into VOTE (RESTAURANT_ID, USER_ID, VOTE_DATE)
-values (3, 1, NOW());
+

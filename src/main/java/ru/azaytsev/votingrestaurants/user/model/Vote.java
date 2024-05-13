@@ -11,17 +11,14 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
+@Data
 @Table(name = "vote")
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Vote extends BaseEntity implements Serializable {
-
-    @Column(name = "vote_date", nullable = false)
-    @NotNull
-    private LocalDate voteDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -33,4 +30,7 @@ public class Vote extends BaseEntity implements Serializable {
     @JsonIncludeProperties(value = {"id"})
     private Restaurant restaurant;
 
+    @Column(name = "vote_date", nullable = false)
+    @NotNull
+    private LocalDate voteDate;
 }

@@ -41,8 +41,4 @@ public class MenuService {
                 .filter(menu -> menu.getRestaurant().getId() == restaurantId)
                 .orElse(null);
     }
-
-//    public Menu get(int id) {
-//        return menuRepository.getWithDishes(id);
-//    }
 }

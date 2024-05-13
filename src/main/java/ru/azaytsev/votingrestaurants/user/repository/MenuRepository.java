@@ -13,14 +13,14 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface MenuRepository extends BaseRepository<Menu> {
 
-   @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT m FROM Menu m")
     List<Menu> findAll();
 
     @Query("SELECT m FROM Menu m WHERE m.menuDate=:menuDate ORDER BY m.restaurant.name")
     List<Menu> getAllByMenuDate(@Param("menuDate") LocalDate menuDate);
 
- @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
+    @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT m FROM Menu m WHERE m.id=?1")
     Menu getWithDishes(int id);
 

@@ -26,8 +26,6 @@ public class RestaurantController {
 
     private final RestaurantRepository restaurantRepository;
 
-
-    //TODO
     @GetMapping
     public List<Restaurant> getAll() {
         log.info("getAll");

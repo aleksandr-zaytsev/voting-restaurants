@@ -2,9 +2,9 @@ package ru.azaytsev.votingrestaurants.user.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+import ru.azaytsev.votingrestaurants.common.BaseRepository;
 import ru.azaytsev.votingrestaurants.common.error.NotFoundException;
 import ru.azaytsev.votingrestaurants.config.SecurityConfig;
-import ru.azaytsev.votingrestaurants.common.BaseRepository;
 import ru.azaytsev.votingrestaurants.user.model.User;
 
 import java.util.Optional;
