@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.model;
+package ru.azaytsev.votingrestaurants.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

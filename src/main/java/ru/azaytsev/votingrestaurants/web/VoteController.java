@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.azaytsev.votingrestaurants.user.AuthUser;
-import ru.azaytsev.votingrestaurants.user.model.Vote;
-import ru.azaytsev.votingrestaurants.user.service.VoteService;
+import ru.azaytsev.votingrestaurants.model.Vote;
+import ru.azaytsev.votingrestaurants.service.VoteService;
 
 import java.net.URI;
 import java.time.LocalDate;

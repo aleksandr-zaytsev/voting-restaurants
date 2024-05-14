@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,12 +6,12 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.azaytsev.votingrestaurants.common.util.JsonUtil;
-import ru.azaytsev.votingrestaurants.user.UsersUtil;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.repository.UserRepository;
-import ru.azaytsev.votingrestaurants.user.to.UserTo;
 import ru.azaytsev.votingrestaurants.AbstractControllerTest;
+import ru.azaytsev.votingrestaurants.common.util.JsonUtil;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.repository.UserRepository;
+import ru.azaytsev.votingrestaurants.to.UserTo;
+import ru.azaytsev.votingrestaurants.user.UsersUtil;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

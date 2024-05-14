@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.service;
+package ru.azaytsev.votingrestaurants.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,12 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.azaytsev.votingrestaurants.common.error.DataConflictException;
 import ru.azaytsev.votingrestaurants.common.error.IllegalRequestDataException;
 import ru.azaytsev.votingrestaurants.common.error.NotFoundException;
-import ru.azaytsev.votingrestaurants.user.model.Restaurant;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.model.Vote;
-import ru.azaytsev.votingrestaurants.user.repository.RestaurantRepository;
-import ru.azaytsev.votingrestaurants.user.repository.UserRepository;
-import ru.azaytsev.votingrestaurants.user.repository.VoteRepository;
+import ru.azaytsev.votingrestaurants.model.Restaurant;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.model.Vote;
+import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
+import ru.azaytsev.votingrestaurants.repository.UserRepository;
+import ru.azaytsev.votingrestaurants.repository.VoteRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,7 +34,7 @@ public class VoteService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found."));
 
-        Vote vote = voteRepository.findByUserIdAndRestaurantIdForToday(userId, restaurantId, LocalDate.now());
+        Vote vote = voteRepository.findByUserIdForToday(userId, LocalDate.now());
         if (vote != null) {
             throw new DataConflictException("Error: vote already exists");
         }
@@ -46,7 +46,6 @@ public class VoteService {
         return voteRepository.save(vote);
     }
 
-
     public void update(int userId, Integer restaurantId, LocalDate newVoteDate, LocalTime newVoteTime) {
 
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
@@ -55,9 +54,9 @@ public class VoteService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found."));
 
-        Vote vote = voteRepository.findByUserId(userId);
+        Vote vote = voteRepository.findByUserIdForToday(userId, LocalDate.now());
         if (vote == null) {
-            return;
+            throw new IllegalRequestDataException("Vote does not exist");
         }
 
         if (isChanging(newVoteTime)) {
@@ -66,11 +65,18 @@ public class VoteService {
             vote.setVoteDate(newVoteDate);
             voteRepository.save(vote);
         } else {
-            throw new IllegalRequestDataException("Voting is closed for today.");
+            throw new IllegalRequestDataException("You can't change your vote for today.");
         }
     }
 
-    private static boolean isChanging(LocalTime newVoteDate) {
-        return newVoteDate.isBefore(VOTING_FINISH_TIME);
+    public Integer getVotesCountByDate(Integer restaurantId, LocalDate voteDate) {
+        if (voteRepository.findAllByVoteDate(voteDate).isEmpty()) {
+            throw new NotFoundException("Votes with date " + voteDate + " not found.");
+        }
+        return voteRepository.getCountByRestaurantForToday(restaurantId, voteDate);
+    }
+
+    private static boolean isChanging(LocalTime newVoteTime) {
+        return newVoteTime.isBefore(VOTING_FINISH_TIME);
     }
 }

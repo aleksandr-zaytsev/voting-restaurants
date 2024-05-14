@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.azaytsev.votingrestaurants.common.validation.ValidationUtil;
 import ru.azaytsev.votingrestaurants.user.AuthUser;
 import ru.azaytsev.votingrestaurants.user.UsersUtil;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.to.UserTo;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.to.UserTo;
 
 import java.net.URI;
 

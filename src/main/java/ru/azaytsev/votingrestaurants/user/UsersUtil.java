@@ -1,9 +1,9 @@
 package ru.azaytsev.votingrestaurants.user;
 
 import lombok.experimental.UtilityClass;
-import ru.azaytsev.votingrestaurants.user.model.Role;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.to.UserTo;
+import ru.azaytsev.votingrestaurants.model.Role;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.to.UserTo;
 
 @UtilityClass
 public class UsersUtil {

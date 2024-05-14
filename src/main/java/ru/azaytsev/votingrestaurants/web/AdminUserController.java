@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Sort;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.azaytsev.votingrestaurants.common.validation.ValidationUtil;
-import ru.azaytsev.votingrestaurants.user.model.User;
+import ru.azaytsev.votingrestaurants.model.User;
 
 import java.net.URI;
 import java.util.List;

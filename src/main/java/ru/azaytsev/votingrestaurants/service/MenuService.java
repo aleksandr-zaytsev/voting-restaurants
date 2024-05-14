@@ -1,11 +1,11 @@
-package ru.azaytsev.votingrestaurants.user.service;
+package ru.azaytsev.votingrestaurants.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.azaytsev.votingrestaurants.user.model.Menu;
-import ru.azaytsev.votingrestaurants.user.repository.MenuRepository;
-import ru.azaytsev.votingrestaurants.user.repository.RestaurantRepository;
+import ru.azaytsev.votingrestaurants.model.Menu;
+import ru.azaytsev.votingrestaurants.repository.MenuRepository;
+import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
 
 import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.checkNew;
 

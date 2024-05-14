@@ -1,11 +1,11 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.repository.UserRepository;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.repository.UserRepository;
 
 import static org.slf4j.LoggerFactory.getLogger;
 

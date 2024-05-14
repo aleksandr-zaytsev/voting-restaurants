@@ -4,8 +4,8 @@ import lombok.Getter;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import ru.azaytsev.votingrestaurants.user.model.Role;
-import ru.azaytsev.votingrestaurants.user.model.User;
+import ru.azaytsev.votingrestaurants.model.Role;
+import ru.azaytsev.votingrestaurants.model.User;
 
 import static java.util.Objects.requireNonNull;
 

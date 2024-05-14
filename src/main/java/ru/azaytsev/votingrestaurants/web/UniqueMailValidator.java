@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import ru.azaytsev.votingrestaurants.common.HasIdAndEmail;
 import ru.azaytsev.votingrestaurants.user.AuthUser;
-import ru.azaytsev.votingrestaurants.user.repository.UserRepository;
+import ru.azaytsev.votingrestaurants.repository.UserRepository;
 
 @Component
 @AllArgsConstructor

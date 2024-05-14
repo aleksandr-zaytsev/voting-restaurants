@@ -1,8 +1,8 @@
 package ru.azaytsev.votingrestaurants.user;
 
 import ru.azaytsev.votingrestaurants.common.util.JsonUtil;
-import ru.azaytsev.votingrestaurants.user.model.Role;
-import ru.azaytsev.votingrestaurants.user.model.User;
+import ru.azaytsev.votingrestaurants.model.Role;
+import ru.azaytsev.votingrestaurants.model.User;
 import ru.azaytsev.votingrestaurants.MatcherFactory;
 
 import java.util.Collections;

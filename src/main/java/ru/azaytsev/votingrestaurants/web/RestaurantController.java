@@ -1,18 +1,16 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.azaytsev.votingrestaurants.user.model.Restaurant;
-import ru.azaytsev.votingrestaurants.user.repository.RestaurantRepository;
+import ru.azaytsev.votingrestaurants.model.Restaurant;
+import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
 
 import java.net.URI;
-import java.util.List;
 
 import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.assureIdConsistent;
 import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.checkNew;
@@ -25,12 +23,6 @@ public class RestaurantController {
     static final String REST_URL = "/api/admin/restaurants";
 
     private final RestaurantRepository restaurantRepository;
-
-    @GetMapping
-    public List<Restaurant> getAll() {
-        log.info("getAll");
-        return restaurantRepository.findAll(Sort.by("name"));
-    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {

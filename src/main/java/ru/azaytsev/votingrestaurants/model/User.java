@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.user.model;
+package ru.azaytsev.votingrestaurants.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;

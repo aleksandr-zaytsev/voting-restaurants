@@ -1,14 +1,14 @@
-package ru.azaytsev.votingrestaurants.user.web;
+package ru.azaytsev.votingrestaurants.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.azaytsev.votingrestaurants.user.model.Dish;
-import ru.azaytsev.votingrestaurants.user.model.Menu;
-import ru.azaytsev.votingrestaurants.user.repository.MenuRepository;
-import ru.azaytsev.votingrestaurants.user.service.MenuService;
+import ru.azaytsev.votingrestaurants.model.Dish;
+import ru.azaytsev.votingrestaurants.model.Menu;
+import ru.azaytsev.votingrestaurants.repository.MenuRepository;
+import ru.azaytsev.votingrestaurants.service.MenuService;
 
 import java.net.URI;
 import java.time.LocalDate;

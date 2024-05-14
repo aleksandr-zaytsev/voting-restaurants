@@ -1,9 +1,9 @@
-package ru.azaytsev.votingrestaurants.user.repository;
+package ru.azaytsev.votingrestaurants.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 import ru.azaytsev.votingrestaurants.common.BaseRepository;
-import ru.azaytsev.votingrestaurants.user.model.Restaurant;
+import ru.azaytsev.votingrestaurants.model.Restaurant;
 
 import java.util.List;
 

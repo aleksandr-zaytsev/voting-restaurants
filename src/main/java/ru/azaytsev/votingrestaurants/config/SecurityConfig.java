@@ -15,9 +15,9 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import ru.azaytsev.votingrestaurants.user.AuthUser;
-import ru.azaytsev.votingrestaurants.user.model.Role;
-import ru.azaytsev.votingrestaurants.user.model.User;
-import ru.azaytsev.votingrestaurants.user.repository.UserRepository;
+import ru.azaytsev.votingrestaurants.model.Role;
+import ru.azaytsev.votingrestaurants.model.User;
+import ru.azaytsev.votingrestaurants.repository.UserRepository;
 
 import java.util.Optional;
 
