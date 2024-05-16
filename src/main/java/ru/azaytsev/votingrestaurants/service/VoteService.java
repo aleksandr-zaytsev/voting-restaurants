@@ -1,7 +1,6 @@
 package ru.azaytsev.votingrestaurants.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.azaytsev.votingrestaurants.common.error.DataConflictException;
@@ -13,11 +12,9 @@ import ru.azaytsev.votingrestaurants.model.Vote;
 import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
 import ru.azaytsev.votingrestaurants.repository.UserRepository;
 import ru.azaytsev.votingrestaurants.repository.VoteRepository;
-import ru.azaytsev.votingrestaurants.to.RestVoteResult;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -81,18 +78,5 @@ public class VoteService {
 
     private static boolean isChanging(LocalTime newVoteTime) {
         return newVoteTime.isBefore(VOTING_FINISH_TIME);
-    }
-
-    public List<RestVoteResult> getResult() {
-
-        List<Vote> voteList = voteRepository.findAllByVoteDate(LocalDate.now());
-        List<Restaurant> restaurantList = restaurantRepository.findAll(Sort.by("name"));
-
-        List<RestVoteResult> restVoteResultList = restaurantList.stream()
-                .map(restaurant -> new RestVoteResult(
-                        restaurant.getName(),
-                        voteRepository.getCountByRestaurantForToday(restaurant.id(), LocalDate.now()))
-                ).toList();
-        return restVoteResultList;
     }
 }

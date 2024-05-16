@@ -12,7 +12,6 @@ import ru.azaytsev.votingrestaurants.model.Restaurant;
 import ru.azaytsev.votingrestaurants.repository.MenuRepository;
 import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
 import ru.azaytsev.votingrestaurants.service.VoteService;
-import ru.azaytsev.votingrestaurants.to.RestVoteResult;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,11 +51,5 @@ public class CommonController {
         log.info("get all votes for restaurant id {} for today {}", restaurantId, voteDate);
         Integer votes = voteService.getVotesCountByDate(restaurantId, voteDate);
         return new ResponseEntity<>(votes, HttpStatus.OK);
-    }
-
-    @GetMapping("/restaurants/result")
-    public List<RestVoteResult> getResult() {
-        log.info("getResult");
-        return voteService.getResult();
     }
 }
