@@ -5,24 +5,26 @@ import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ru.azaytsev.votingrestaurants.common.model.BaseEntity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Data
-@Table(name = "vote")
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(name = "vote_user_id_vote_date_idx",
+        columnNames = {"user_id", "vote_date"})})
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class Vote extends BaseEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

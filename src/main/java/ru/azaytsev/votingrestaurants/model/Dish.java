@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 public class Dish extends NamedEntity implements Serializable {
 
     @Column(name = "price", nullable = false)
-    @Range(min = 1, max = 100000)
+    @Range(min = 1)
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)

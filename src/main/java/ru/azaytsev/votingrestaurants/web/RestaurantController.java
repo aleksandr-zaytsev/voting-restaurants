@@ -50,6 +50,13 @@ public class RestaurantController {
         return ResponseEntity.of(restaurantRepository.findById(id));
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
+        log.info("delete {}", id);
+        restaurantRepository.deleteExisted(id);
+    }
+
     public RestaurantController(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }

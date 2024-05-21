@@ -6,7 +6,7 @@ VALUES ('User', 'user@yandex.ru', '{noop}password'),
 INSERT INTO USER_ROLE (role, user_id)
 VALUES ('USER', 1),
        ('ADMIN', 2),
-       ('USER', 3);
+       ('USER', 2);
 
 insert into RESTAURANT (NAME)
 values ('Italian');
@@ -40,6 +40,9 @@ insert into DISH (NAME, PRICE, MENU_ID)
 values ('Soup', 300, 3);
 insert into DISH (NAME, PRICE, MENU_ID)
 values ('Eggs', 400, 3);
+
+insert into VOTE (USER_ID, RESTAURANT_ID, VOTE_DATE)
+values (1, 2, '2024-05-16');
 
 insert into VOTE (USER_ID, RESTAURANT_ID, VOTE_DATE)
 values (1, 1, NOW());

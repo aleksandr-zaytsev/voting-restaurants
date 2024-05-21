@@ -3,15 +3,15 @@ package ru.azaytsev.votingrestaurants.web;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.azaytsev.votingrestaurants.model.Menu;
 import ru.azaytsev.votingrestaurants.model.Restaurant;
 import ru.azaytsev.votingrestaurants.repository.MenuRepository;
 import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
-import ru.azaytsev.votingrestaurants.service.VoteService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,7 +23,6 @@ import java.util.List;
 public class CommonController {
 
     private final MenuRepository menuRepository;
-    private final VoteService voteService;
     private final RestaurantRepository restaurantRepository;
 
     @GetMapping("/restaurants")
@@ -43,13 +42,5 @@ public class CommonController {
     public Menu get(@PathVariable int id) {
         log.info("get menu with dishes by id {}", id);
         return menuRepository.getWithDishes(id);
-    }
-
-    @GetMapping("/restaurants/{restaurantId}/votes")
-    public ResponseEntity<Integer> getVotesByRestaurantForToday(@RequestParam @PathVariable Integer restaurantId) {
-        LocalDate voteDate = LocalDate.now();
-        log.info("get all votes for restaurant id {} for today {}", restaurantId, voteDate);
-        Integer votes = voteService.getVotesCountByDate(restaurantId, voteDate);
-        return new ResponseEntity<>(votes, HttpStatus.OK);
     }
 }

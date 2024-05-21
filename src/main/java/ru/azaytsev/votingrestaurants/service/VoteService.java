@@ -20,21 +20,21 @@ import java.time.LocalTime;
 @RequiredArgsConstructor
 public class VoteService {
 
-    private static final LocalTime VOTING_FINISH_TIME = LocalTime.of(11, 0);
+    private static final LocalTime VOTING_FINISH_TIME = LocalTime.of(22, 0);
 
     private final RestaurantRepository restaurantRepository;
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;
 
     @Transactional
-    public Vote create(Integer userId, Integer restaurantId, LocalDate newVoteDate) {
+    public Vote create(int userId, int restaurantId, LocalDate newVoteDate) {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new NotFoundException("Restaurant with id=" + restaurantId + " not found."));
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found."));
 
-        Vote vote = voteRepository.findByUserIdForToday(userId, LocalDate.now());
+        Vote vote = voteRepository.findByUserAndByDate(userId, LocalDate.now());
         if (vote != null) {
             throw new DataConflictException("Error: vote already exists");
         }
@@ -46,7 +46,7 @@ public class VoteService {
         return voteRepository.save(vote);
     }
 
-    public void update(int userId, Integer restaurantId, LocalDate newVoteDate, LocalTime newVoteTime) {
+    public void update(int userId, int restaurantId, LocalDate newVoteDate, LocalTime newVoteTime) {
 
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new NotFoundException("Restaurant with id=" + restaurantId + " not found."));
@@ -54,7 +54,7 @@ public class VoteService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("User with id=" + userId + " not found."));
 
-        Vote vote = voteRepository.findByUserIdForToday(userId, LocalDate.now());
+        Vote vote = voteRepository.findByUserAndByDate(userId, LocalDate.now());
         if (vote == null) {
             throw new IllegalRequestDataException("Vote does not exist");
         }
@@ -67,13 +67,6 @@ public class VoteService {
         } else {
             throw new IllegalRequestDataException("You can't change your vote for today.");
         }
-    }
-
-    public Integer getVotesCountByDate(Integer restaurantId, LocalDate voteDate) {
-        if (voteRepository.findAllByVoteDate(voteDate).isEmpty()) {
-            throw new NotFoundException("Votes with date " + voteDate + " not found.");
-        }
-        return voteRepository.getCountByRestaurantForToday(restaurantId, voteDate);
     }
 
     private static boolean isChanging(LocalTime newVoteTime) {

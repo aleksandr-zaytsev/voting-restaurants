@@ -3,6 +3,7 @@ package ru.azaytsev.votingrestaurants.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.azaytsev.votingrestaurants.common.error.DataConflictException;
 import ru.azaytsev.votingrestaurants.model.Menu;
 import ru.azaytsev.votingrestaurants.repository.MenuRepository;
 import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
@@ -18,20 +19,17 @@ public class MenuService {
     protected RestaurantRepository restaurantRepository;
 
     @Transactional
-    public Menu create(Menu menu, Integer restaurantId) {
+    public Menu create(Menu menu, int restaurantId) {
         checkNew(menu);
-        if (!menu.isNew() && get(menu.getId(), restaurantId) == null) {
-            return null;
+        if (!menuRepository.getAllByMenuDateAndRestaurantId(menu.getMenuDate(), restaurantId).isEmpty()) {
+            throw new DataConflictException("Menu already exist");
         }
-        if ((menu.getMenuDate() == null) && !(menu.isNew())) {
-            Menu previous = get(menu.getId(), restaurantId);
-            menu.setMenuDate(previous.getMenuDate());
-        }
+
         menu.setRestaurant(restaurantRepository.getExisted(restaurantId));
         return menuRepository.save(menu);
     }
 
-    public void update(Menu menu, Integer restaurantId) {
+    public void update(Menu menu, int restaurantId) {
         menu.setRestaurant((restaurantRepository.getExisted(restaurantId)));
         menuRepository.save(menu);
     }

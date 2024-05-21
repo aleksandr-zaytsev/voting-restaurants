@@ -1,6 +1,7 @@
 package ru.azaytsev.votingrestaurants.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +18,19 @@ public interface MenuRepository extends BaseRepository<Menu> {
     @Query("SELECT m FROM Menu m")
     List<Menu> findAll();
 
-    @Query("SELECT m FROM Menu m WHERE m.menuDate=:menuDate ORDER BY m.restaurant.name")
+    @Query("SELECT m FROM Menu m WHERE m.menuDate=:menuDate")
     List<Menu> getAllByMenuDate(@Param("menuDate") LocalDate menuDate);
+
+    @Query("SELECT m FROM Menu m WHERE m.menuDate=:menuDate AND m.restaurant.id=:restaurantId")
+    List<Menu> getAllByMenuDateAndRestaurantId(@Param("menuDate") LocalDate menuDate, @Param("restaurantId") int restaurantId);
+
 
     @EntityGraph(attributePaths = {"dishes"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT m FROM Menu m WHERE m.id=?1")
     Menu getWithDishes(int id);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Menu m WHERE m.id=:id AND m.restaurant.id=:restaurantId")
+    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
 }
