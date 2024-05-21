@@ -30,6 +30,7 @@ public class Vote extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIncludeProperties(value = {"id"})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     @Column(name = "vote_date", nullable = false)

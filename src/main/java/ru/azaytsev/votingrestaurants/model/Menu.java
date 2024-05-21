@@ -34,13 +34,5 @@ public class Menu extends BaseEntity {
     private LocalDate menuDate;
 
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
-
-    public Menu(Integer id, Restaurant restaurant, LocalDate menuDate, List<Dish> dishes) {
-        super(id);
-        this.restaurant = restaurant;
-        this.menuDate = menuDate;
-        this.dishes = dishes;
-    }
 }

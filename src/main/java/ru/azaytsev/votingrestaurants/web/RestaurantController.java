@@ -1,6 +1,7 @@
 package ru.azaytsev.votingrestaurants.web;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +19,7 @@ import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.che
 @RestController
 @RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@RequiredArgsConstructor
 public class RestaurantController {
 
     static final String REST_URL = "/api/admin/restaurants";
@@ -55,9 +57,5 @@ public class RestaurantController {
     public void delete(@PathVariable int id) {
         log.info("delete {}", id);
         restaurantRepository.deleteExisted(id);
-    }
-
-    public RestaurantController(RestaurantRepository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
     }
 }

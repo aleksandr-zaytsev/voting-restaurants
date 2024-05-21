@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 import ru.azaytsev.votingrestaurants.common.model.NamedEntity;
 
@@ -25,5 +27,6 @@ public class Dish extends NamedEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id", nullable = false)
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Menu menu;
 }

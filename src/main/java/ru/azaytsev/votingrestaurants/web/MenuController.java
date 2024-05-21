@@ -1,5 +1,6 @@
 package ru.azaytsev.votingrestaurants.web;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = MenuController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@RequiredArgsConstructor
 public class MenuController {
 
     static final String REST_URL = "/api/admin/restaurants";
@@ -72,7 +74,7 @@ public class MenuController {
     @DeleteMapping("/{restaurantId}/menus/{menuDate}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable LocalDate menuDate, @PathVariable Integer restaurantId) {
-        log.info("delete menu with data {} for restaurant with id {}", menuDate, restaurantId);
+        log.info("delete menu with date {} for restaurant with id {}", menuDate, restaurantId);
         Menu menuExisted = menuRepository.getByMenuDateAndRestaurantId(menuDate, restaurantId);
         if (menuExisted == null) {
             throw new DataConflictException("Menu does not exist");
@@ -80,11 +82,5 @@ public class MenuController {
         List<Dish> dishes = menuExisted.getDishes();
         dishRepository.deleteAll(dishes);
         menuRepository.delete(menuExisted);
-    }
-
-    public MenuController(MenuRepository menuRepository, MenuService menuService, DishRepository dishRepository) {
-        this.menuRepository = menuRepository;
-        this.menuService = menuService;
-        this.dishRepository = dishRepository;
     }
 }
