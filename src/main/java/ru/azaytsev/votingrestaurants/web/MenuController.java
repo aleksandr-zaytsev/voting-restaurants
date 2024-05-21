@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.azaytsev.votingrestaurants.common.error.DataConflictException;
 import ru.azaytsev.votingrestaurants.model.Dish;
 import ru.azaytsev.votingrestaurants.model.Menu;
 import ru.azaytsev.votingrestaurants.repository.DishRepository;
@@ -27,6 +29,20 @@ public class MenuController {
     private final MenuService menuService;
     private final DishRepository dishRepository;
 
+    @GetMapping("/menus")
+    public List<Menu> getAllForToday() {
+        LocalDate menuDate = LocalDate.now();
+        log.info("get all menus for today {}", menuDate);
+        return menuRepository.getAllByMenuDate(menuDate);
+    }
+
+    @Transactional
+    @GetMapping("/{restaurantId}/menus/{menuDate}")
+    public Menu get(@PathVariable int restaurantId, @PathVariable LocalDate menuDate) {
+        log.info("get menu with dishes by restaurant id {} and date{} ", restaurantId, menuDate);
+        return menuRepository.getByMenuDateAndRestaurantId(menuDate, restaurantId);
+    }
+
     @PostMapping(value = "/{restaurantId}/menus",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> createWithLocation(@RequestBody Menu menu,
@@ -38,37 +54,32 @@ public class MenuController {
             log.info("set date {} for menu", menu.getMenuDate());
         }
         Menu createdMenu = menuService.create(menu, restaurantId);
-        List<Dish> dishes = menu.getDishes();
-        if (dishes != null) {
-            dishes.forEach(dish -> dish.setMenu(createdMenu));
-            dishRepository.saveAll(dishes);
-        }
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{restaurantId}/menus/{menuId}")
+                .path(REST_URL + "/{restaurantId}/menus/{menuDate}")
                 .buildAndExpand(restaurantId, createdMenu.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(createdMenu);
     }
 
-    @PutMapping(value = "/{restaurantId}/menus/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{restaurantId}/menus/{menuDate}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@RequestBody Menu menu,
-                       @PathVariable Integer restaurantId,
-                       @PathVariable Integer menuId) {
+                       @PathVariable Integer restaurantId
+    ) {
         log.info("update menu {} for restaurant id {}", menu, restaurantId);
-        menu.setId(menuId);
-
-        List<Dish> dishes = menu.getDishes();
-        if (dishes != null) {
-            dishes.forEach(dish -> dish.setId(null));
-        }
         menuService.update(menu, restaurantId);
     }
 
-    @DeleteMapping("/{restaurantId}/menus/{menuId}")
+    @DeleteMapping("/{restaurantId}/menus/{menuDate}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer menuId, @PathVariable Integer restaurantId) {
-        log.info("delete menu with id {} for restaurant with id {}", menuId, restaurantId);
-        menuRepository.delete(menuId, restaurantId);
+    public void delete(@PathVariable LocalDate menuDate, @PathVariable Integer restaurantId) {
+        log.info("delete menu with data {} for restaurant with id {}", menuDate, restaurantId);
+        Menu menuExisted = menuRepository.getByMenuDateAndRestaurantId(menuDate, restaurantId);
+        if (menuExisted == null) {
+            throw new DataConflictException("Menu does not exist");
+        }
+        List<Dish> dishes = menuExisted.getDishes();
+        dishRepository.deleteAll(dishes);
+        menuRepository.delete(menuExisted);
     }
 
     public MenuController(MenuRepository menuRepository, MenuService menuService, DishRepository dishRepository) {

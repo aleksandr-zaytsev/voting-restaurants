@@ -33,7 +33,7 @@ public class Menu extends BaseEntity {
     @Column(name = "menu_date", nullable = false)
     private LocalDate menuDate;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Dish> dishes;
 
