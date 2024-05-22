@@ -8,10 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.azaytsev.votingrestaurants.repository.VoteRepository;
-import ru.azaytsev.votingrestaurants.user.AuthUser;
+import ru.azaytsev.votingrestaurants.common.error.DataConflictException;
 import ru.azaytsev.votingrestaurants.model.Vote;
+import ru.azaytsev.votingrestaurants.repository.VoteRepository;
 import ru.azaytsev.votingrestaurants.service.VoteService;
+import ru.azaytsev.votingrestaurants.user.AuthUser;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -19,10 +20,10 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = VoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = UserVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
-public class VoteController {
+public class UserVoteController {
 
     static final String REST_URL = "/api/user/votes";
 
@@ -38,7 +39,11 @@ public class VoteController {
     @GetMapping("/{voteDate}")
     public Vote getByDate(@AuthenticationPrincipal AuthUser authUser, @PathVariable LocalDate voteDate) {
         log.info("get vote on date {}", voteDate);
-        return voteRepository.findByUserAndByDate(authUser.id(), voteDate);
+        Vote voteExisted = voteRepository.findByUserAndByDate(authUser.id(), voteDate);
+        if (voteExisted == null) {
+            throw new DataConflictException("Vote does not exist");
+        }
+        return voteExisted;
     }
 
     @GetMapping

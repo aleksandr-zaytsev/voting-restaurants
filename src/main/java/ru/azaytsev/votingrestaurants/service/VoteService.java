@@ -53,9 +53,7 @@ public class VoteService {
         }
 
         if (isChanging(newVoteTime)) {
-            vote.setUser(user);
-            vote.setRestaurant(restaurant);
-            vote.setVoteDate(newVoteDate);
+            vote = new Vote(user, restaurant, newVoteDate);
             voteRepository.save(vote);
         } else {
             throw new IllegalRequestDataException("You can't change your vote for today.");

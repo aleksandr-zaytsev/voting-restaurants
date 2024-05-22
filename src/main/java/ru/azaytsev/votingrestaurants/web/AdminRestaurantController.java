@@ -10,27 +10,26 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.azaytsev.votingrestaurants.model.Restaurant;
 import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
+import ru.azaytsev.votingrestaurants.service.RestaurantService;
 
 import java.net.URI;
 
-import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.assureIdConsistent;
-import static ru.azaytsev.votingrestaurants.common.validation.ValidationUtil.checkNew;
-
 @RestController
-@RequestMapping(value = RestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = AdminRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 @RequiredArgsConstructor
-public class RestaurantController {
+public class AdminRestaurantController {
 
     static final String REST_URL = "/api/admin/restaurants";
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@Valid @RequestBody Restaurant restaurant) {
         log.info("create {}", restaurant);
-        checkNew(restaurant);
-        Restaurant created = restaurantRepository.save(restaurant);
+
+        Restaurant created = restaurantService.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -42,14 +41,7 @@ public class RestaurantController {
     public void update(@Valid @RequestBody Restaurant restaurant,
                        @PathVariable int id) {
         log.info("update {} with id={}", restaurant, id);
-        assureIdConsistent(restaurant, id);
-        restaurantRepository.save(restaurant);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> get(int id) {
-        log.info("get {}", id);
-        return ResponseEntity.of(restaurantRepository.findById(id));
+        restaurantService.update(restaurant, id);
     }
 
     @DeleteMapping("/{id}")

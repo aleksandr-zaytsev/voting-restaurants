@@ -2,14 +2,13 @@ package ru.azaytsev.votingrestaurants.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.azaytsev.votingrestaurants.model.Restaurant;
-import ru.azaytsev.votingrestaurants.repository.MenuRepository;
-import ru.azaytsev.votingrestaurants.repository.RestaurantRepository;
+import ru.azaytsev.votingrestaurants.service.RestaurantService;
 
 import java.util.List;
 
@@ -19,13 +18,16 @@ import java.util.List;
 @Slf4j
 public class UserRestaurantController {
 
-    private final MenuRepository menuRepository;
-    private final RestaurantRepository restaurantRepository;
+    private final RestaurantService restaurantService;
 
     @GetMapping
     public List<Restaurant> getAll() {
-        log.info("getAll");
-        return restaurantRepository.findAll(Sort.by("name"));
+        return restaurantService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {
+        log.info("get {}", id);
+        return restaurantService.get(id);
+    }
 }

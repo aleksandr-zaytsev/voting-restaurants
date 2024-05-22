@@ -27,7 +27,7 @@ public class Vote extends BaseEntity implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @JsonIncludeProperties(value = {"id"})
     @OnDelete(action = OnDeleteAction.CASCADE)

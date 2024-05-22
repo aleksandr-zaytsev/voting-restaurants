@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.azaytsev.votingrestaurants.AbstractControllerTest;
 import ru.azaytsev.votingrestaurants.common.util.JsonUtil;
+import ru.azaytsev.votingrestaurants.common.validation.UniqueMailValidator;
 import ru.azaytsev.votingrestaurants.model.User;
 import ru.azaytsev.votingrestaurants.repository.UserRepository;
 import ru.azaytsev.votingrestaurants.to.UserTo;

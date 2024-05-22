@@ -1,6 +1,5 @@
 package ru.azaytsev.votingrestaurants.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -23,9 +22,8 @@ import java.util.List;
 public class Menu extends BaseEntity {
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    @JsonIgnore
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
@@ -33,6 +31,6 @@ public class Menu extends BaseEntity {
     @Column(name = "menu_date", nullable = false)
     private LocalDate menuDate;
 
-    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "menu", fetch = FetchType.EAGER)
     private List<Dish> dishes;
 }

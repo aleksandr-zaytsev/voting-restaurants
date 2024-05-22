@@ -1,4 +1,4 @@
-package ru.azaytsev.votingrestaurants.web;
+package ru.azaytsev.votingrestaurants.common.validation;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
